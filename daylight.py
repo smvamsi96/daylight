@@ -3,7 +3,6 @@
 import json
 import lib as l
 
-<<<<<<< HEAD
 TMU = l.TimeManagementUnit()
 
 # a container for all the jobs
