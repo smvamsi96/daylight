@@ -1,0 +1,30 @@
+I'm thinking of modelling scheduling as Operating-Systems do.
+Efficiency and control together are two of the main goals of any modern operating system.
+OK.
+So I'm the CPU.
+What I'm not sure about is whether I should model my Time as CPU TIME or MEMORY SPACE.
+Let's think about it.
+
+The process is equivalent to a Job.
+Aha! The virtualization of the CPU is about the order of execution, But the virtualization of MEMORY is about the space(time) available.
+Both of them are important!
+Let's get MEMORY right first.
+Let the job think that it has all the time in the world.
+The algorithm will break the job into pieces.
+Think about malloc() and free().
+malloc(length) -> allocates space.
+free(pointer) -> frees memory.
+You will need a timer-interrupt(like CPU).
+The jobs must not overlap in their Time Spaces.
+The length of the job must be less than the available Time Space.
+Like an Address Translation Unit, you will need a Time Manamagement Unit(TMU).
+A TMU could work like this:
+- have base and bounds variables
+- but this is not useful for preemptive scheduling(may be you can have multiple base, bounds pairs for each piece of the job)
+- you can use the bounds variable for overlap protection
+- you will need to keep track of the free and occupied slots
+- take care of external fragmentation
+- think about overflow
+Talloc() requests may fail because there is no single contiguous space that can satisfy the request, even though the total amount of free space exceeds the size of the request.
+Prefer Keeping the Schedule to Rescheduling.
+
