@@ -3,6 +3,7 @@
 import json
 import lib as l
 
+<<<<<<< HEAD
 TMU = l.TimeManagementUnit()
 
 # a container for all the jobs
@@ -15,7 +16,6 @@ for job in jobs:
     TMU.schedule(job)
 
 l.print_jobs(jobs)
-
 
 # TODO
 # add jobs while the program is running
