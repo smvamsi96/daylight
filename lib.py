@@ -4,9 +4,7 @@ import datetime as d
 class TimeManagementUnit:
     """A class that manages time slots for all jobs"""
     base_time = d.datetime.now()
-    base_time = base_time.replace(hour=0)
-    base_time = base_time.replace(minute=0)
-    base_time = base_time.replace(second=0)
+    base_time = base_time.replace(hour=0, minute=0, second=0)
     min_time_slice = 5 #minutes
     hours = 0
     days = 1
@@ -30,10 +28,10 @@ class TimeManagementUnit:
         job.base, job.bound = self.map_slice_to_time(job.base, job.bound)
 
     def map_slice_to_time(self, base, bound):
-        x = base*self.min_time_slice
+        x = base*(self.min_time_slice)
+        y = bound*(self.min_time_slice)
         base = self.base_time + d.timedelta(minutes=x-self.min_time_slice)
-        x = bound*self.min_time_slice
-        bound = self.base_time + d.timedelta(minutes=x)
+        bound = self.base_time + d.timedelta(minutes=y)
         return base, bound
 
 
@@ -42,7 +40,7 @@ class Job:
     """A class for representing a single job"""
     def __init__(self, name, job_length):
         self.name = name
-        self.job_length = job_length # say, in minutes
+        self.job_length = int(job_length) # say, in minutes
         self.daylight_index = self.calc_daylight_index()
         self.base = 0
         self.bound = 0
@@ -53,9 +51,16 @@ class Job:
         return index
 
     def get_base(self):
-        return self.base.strftime("%d/%m/%Y, %H:%M:%S")
+        if isinstance(self.base, d.datetime):
+            return self.base.strftime("%d/%m/%Y, %H:%M:%S")
+        else:
+            return self.base
+
     def get_bound(self):
-        return self.bound.strftime("%d/%m/%Y, %H:%M:%S")
+        if isinstance(self.base, d.datetime):
+            return self.bound.strftime("%d/%m/%Y, %H:%M:%S")
+        else:
+            return self.bound
 
 def input_job():
     name = input("Enter Job Name: ")
@@ -97,7 +102,6 @@ def deserialize(file_name='jobs.json'):
         a = Job(d[i][0], d[i][1])#, d[i][2], d[i][3])
         jobs.append(a)
         i += 1
-
     return jobs
 
 def print_jobs(jobs):
@@ -108,10 +112,26 @@ def print_jobs(jobs):
         print(f"Name: {jobs[i].name}\nLength: {jobs[i].job_length}\nStarts at: {jobs[i].get_base()}\nFinishes at: {jobs[i].get_bound()}\n")
         i += 1
 
-def myFunc(e):
-    return e.daylight_index
 
-# changes are permanent
-def schedule_jobs(jobs):
-    jobs.sort(key=myFunc)
-    return jobs
+def partition(arr,low,high): 
+    i = ( low-1 )         # index of smaller element 
+    pivot = arr[high].job_length     # pivot 
+    for j in range(low , high): 
+        if   arr[j].job_length <= pivot: 
+            i = i+1 
+            arr[i], arr[j] = arr[j], arr[i]
+    arr[i+1] ,arr[high] = arr[high] ,arr[i+1]
+    return ( i+1 ) 
+  
+def quickSort(arr,low,high): 
+    if low < high: 
+        # pi is partitioning index, arr[p] is now 
+        # at right place 
+        pi = partition(arr,low,high) 
+  
+        # Separately sort elements before 
+        # partition and after partition 
+        quickSort(arr, low, pi-1) 
+        quickSort(arr, pi+1, high) 
+ 
+

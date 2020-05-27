@@ -3,14 +3,18 @@
 import json
 import lib as l
 
+def myFunc(e):
+    return e.daylight_index
+
 TMU = l.TimeManagementUnit()
 
 # a container for all the jobs
 jobs = []
 # load all the jobs from disk
 jobs = l.deserialize()
-# organize jobs based on daylight_index
-l.schedule_jobs(jobs)
+# sort the jobs using length
+l.quickSort(jobs, 0, len(jobs)-1)
+
 for job in jobs:
     TMU.schedule(job)
 
