@@ -1,0 +1,33 @@
+A Fundamental Principle in Computer Science is "Know What you're measuring".
+Before you have a plan, you must choose your metric.
+You need to keep score.
+So what am i measuring?
+I intend to create a daylight-index for ranking tasks or jobs.
+The basic idea: Each job needs to have some questions that need to be answered. From those answers, I(Computer) compute the "daylight-index".
+
+So, now this is what the daylight-algorithm should do:
+- which jobs should be finished first
+- which jobs should be finished last
+- how to deal with deadlines
+- how to break down a job into multiple(preemptive-scheduling)
+- when to have a break
+- how to schedule jobs around fixed-time jobs
+- how to keep the meta-work to a minimum
+- deal with thrashing
+- deal with context-switching
+- which jobs to batch(interrupt coaslesce)
+- how to provide motivation
+- which jobs have the most weight(leverage)
+- which jobs are the most urgent
+- how does it handle interruptions
+- how to deal with botched jobs
+- rescheduling
+- turnaround time
+- priority inversion & priority inheritance
+- strike a balance between responsiveness and throughput
+- dealing with an overload of jobs
+
+Let's start with a simple SHORTEST-JOB-FIRST algorithm and go from there.
+Assumptions:
+_ I know the length of the job
+_ all jobs are equally important
