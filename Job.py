@@ -3,7 +3,12 @@ import datetime as d
 class Job:
     """A class for representing a single job"""
     def __init__(self, arg_dict):
-        self.signature = { "name" : arg_dict["name"], "job_length" : int(arg_dict["job_length"]),}
+        self.signature = {
+                "name" : arg_dict["name"],
+                "job_length" : int(arg_dict["job_length"]),
+                # jobs start out with this default priority level
+                "priority" : 9999
+                }
         # job_length in minutes
         self.daylight_index = self.calc_daylight_index()
         self.base = 0
@@ -25,3 +30,7 @@ class Job:
             return self.bound.strftime("%d/%m/%Y, %H:%M:%S")
         else:
             return self.bound
+
+    def setPriority(self, priority):
+        self.signature['priority'] = priority
+

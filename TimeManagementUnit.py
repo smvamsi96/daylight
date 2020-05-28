@@ -12,7 +12,7 @@ class TimeManagementUnit:
     years = 0
     total_slices= ((years*365*24*60) + (months*30*24*60) + (weeks*7*24*60) + (days*24*60) + (hours*60))/min_time_slice
     # right now, the time_container equals 1440 slices!
-    free_slots = [value for value in range(1, int(total_slices)+1)]
+    free_slots = list(range(1, int(total_slices)+1))
 
     def schedule(self, job):
         # grab the first free time-slice in free_slots
