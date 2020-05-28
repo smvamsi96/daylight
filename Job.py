@@ -7,17 +7,16 @@ class Job:
                 "name" : arg_dict["name"],
                 "job_length" : int(arg_dict["job_length"]),
                 # jobs start out with this default priority level
-                "priority" : 9999
+                "priority" : 9999,
+                "daylight_index" : 0,
                 }
         # job_length in minutes
-        self.daylight_index = self.calc_daylight_index()
         self.base = 0
         self.bound = 0
         # this assumes that the job executes in one contiguous time_slice
 
     def calc_daylight_index(self):
-        index = self.signature["job_length"]
-        return index
+        self.signature['daylight_index'] = ((self.signature['priority'])/(self.signature['job_length']))
 
     def get_base(self):
         if isinstance(self.base, d.datetime):
@@ -33,4 +32,3 @@ class Job:
 
     def setPriority(self, priority):
         self.signature['priority'] = priority
-

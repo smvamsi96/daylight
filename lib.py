@@ -49,12 +49,7 @@ def loadFromDisk(file_name='jobs.json'):
 
 
 def isLessThan(a, b):
-    if (a.signature['priority'] == 9999):
-        if (input(f"is \"{b.signature['name']}\" > \"{a.signature['name']}\": ") == 'y'):
-            return True
-        else:
-            return False
-    elif (b.signature['priority'] == 9999):
+    if (bool(a.signature['priority'] == 9999) ^ bool(b.signature['priority'] == 9999)):
         if (input(f"is \"{b.signature['name']}\" > \"{a.signature['name']}\": ") == 'y'):
             return True
         else:

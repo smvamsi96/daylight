@@ -14,7 +14,7 @@ class TimeManagementUnit:
     # right now, the time_container equals 1440 slices!
     free_slots = list(range(1, int(total_slices)+1))
 
-    def schedule(self, job):
+    def talloc(self, job):
         # grab the first free time-slice in free_slots
         grab = int(job.signature["job_length"])
         job.base = self.free_slots.pop(0)
