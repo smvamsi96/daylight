@@ -16,7 +16,7 @@ class TimeManagementUnit:
 
     def schedule(self, job):
         # grab the first free time-slice in free_slots
-        grab = int(job.job_length)
+        grab = int(job.signature["job_length"])
         job.base = self.free_slots.pop(0)
         slice_length = 1
         while (slice_length*self.min_time_slice < grab):

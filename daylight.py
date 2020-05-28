@@ -11,7 +11,8 @@ jobs = []
 # load all the jobs from disk
 jobs = L.loadFromDisk()
 # sort the jobs using length
-L.quickSort(jobs, 0, len(jobs)-1)
-for job in jobs:
-    TMU.schedule(job)
-L.printJobs(jobs)
+#L.quickSort(jobs, 0, len(jobs)-1)
+#for job in jobs:
+#    TMU.schedule(job)
+
+L.saveToDisk(jobs)

@@ -7,8 +7,9 @@ from Job import Job
 def addJob():
     name = input("Enter Job Name: ")
     job_length = input("Enter Job Length: ")
-    j = Job(name, job_length)
-    return j
+    signature = { "name" : name, "job_length" : job_length, }
+    job = Job(name, signature)
+    return job
 
 
 
@@ -20,9 +21,7 @@ def saveToDisk(job_list, file_name='jobs.json'):
     signature_container = []
     while (i < len(job_list)):
         # the signature of a job is collection of its unique attributes
-        signature = []
-        signature.append(job_list[i].name)
-        signature.append(job_list[i].job_length)
+        signature = job_list[i].signature
         signature_container.append(signature)
         i += 1
     with open(file_name, 'w') as dump_file:
@@ -40,7 +39,8 @@ def loadFromDisk(file_name='jobs.json'):
     job_list = []
     i = 0
     while (i < len(signature_container)):
-        new_job = Job(signature_container[i][0], signature_container[i][1])
+        signature = signature_container[i]
+        new_job = Job(signature)
         job_list.append(new_job)
         i += 1
     return job_list
@@ -62,9 +62,9 @@ def printJobs(jobs):
 
 def partition(arr,low,high): 
     i = ( low-1 )         # index of smaller element 
-    pivot = arr[high].job_length     # pivot 
+    pivot = arr[high].signature["job_length"]     # pivot 
     for j in range(low , high): 
-        if   arr[j].job_length <= pivot: 
+        if   arr[j].signature["job_length"] <= pivot: 
             i = i+1 
             arr[i], arr[j] = arr[j], arr[i]
     arr[i+1] ,arr[high] = arr[high] ,arr[i+1]
